@@ -4,94 +4,241 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Спасите Жизнь Айяны | Срочный Сбор Средств</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 <style>
-/* --- Глобальные Стили и Градиентный Фон --- */
+/* --- Глобальные Стили и Цветочный Фон --- */
 :root {
-    --primary-color: #007bff; /* Синий - для акцентов и заголовков */
-    --secondary-color: #28a745; /* Зеленый - для кнопки пожертвования */
-    --gradient-start: #e0f7fa; /* Очень светло-голубой */
-    --gradient-end: #b3e5fc; /* Нежно-голубой */
-    --text-color: #333;
+    --primary-color: #1E88E5; /* Темно-синий для заголовков */
+    --secondary-color: #4CAF50; /* Зеленый для кнопок */
+    --accent-color: #FFB74D; /* Оранжевый для акцентов */
+    --light-blue: #E3F2FD; /* Светло-голубой */
+    --very-light-blue: #F5F9FF; /* Очень светло-голубой */
+    --pale-blue: #B3E5FC; /* Бледно-голубой */
+    --soft-pink: #FCE4EC; /* Мягкий розовый */
+    --text-color: #2C3E50; /* Темно-синий для текста */
     --font-family: 'Arial', sans-serif;
 }
 body {
     font-family: var(--font-family);
     margin: 0;
-    /* Нежно-голубой градиентный фон */
-    background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    background-attachment: fixed; /* Фиксирует фон при прокрутке */
+    /* Цветочный фон */
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(179, 229, 252, 0.3) 0%, transparent 20%),
+        radial-gradient(circle at 90% 10%, rgba(227, 242, 253, 0.4) 0%, transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(252, 228, 236, 0.3) 0%, transparent 20%),
+        linear-gradient(135deg, var(--very-light-blue) 0%, #F0F8FF 100%);
+    background-attachment: fixed;
     color: var(--text-color);
     line-height: 1.6;
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%; /* Предотвращает авто-масштабирование текста на iOS */
+    -webkit-text-size-adjust: 100%;
+    position: relative;
+    min-height: 100vh;
 }
+
+/* Декоративные цветочки */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20 Q55 15 60 20 Q65 25 60 30 Q55 35 50 30 Q45 35 40 30 Q35 25 40 20 Q45 15 50 20Z' fill='%23B3E5FC' opacity='0.1'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 25 Q60 20 65 25 Q70 30 65 35 Q60 40 50 35 Q40 40 35 35 Q30 30 35 25 Q40 20 50 25Z' fill='%23E3F2FD' opacity='0.08'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='20' fill='%23FCE4EC' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 100px, 120px, 80px;
+    background-repeat: repeat;
+    pointer-events: none;
+    z-index: -1;
+}
+
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 20px;
 }
-h1, h2 { color: var(--primary-color); }
-section {
-    background: #ffffff;
-    margin: 20px 0;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    animation: fadeInUp 0.8s forwards;
-    opacity: 1; /* Убран эффект opacity для упрощения */
+
+/* Все заголовки единого темно-синего цвета */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color) !important;
+    text-shadow: 1px 1px 2px rgba(30, 136, 229, 0.1);
 }
+
+section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
+    margin: 25px 0;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 
+        0 8px 25px rgba(30, 136, 229, 0.1),
+        0 4px 10px rgba(179, 229, 252, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(179, 229, 252, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Декоративные уголки у блоков */
+section::before, section::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(179, 229, 252, 0.2) 0%, transparent 70%);
+    z-index: 0;
+}
+
+section::before {
+    top: -15px;
+    left: -15px;
+}
+
+section::after {
+    bottom: -15px;
+    right: -15px;
+}
+
 /* --- Header --- */
 header {
-    background-color: #fff;
-    padding: 20px 0;
+    background: linear-gradient(135deg, 
+        rgba(30, 136, 229, 0.95) 0%, 
+        rgba(66, 165, 245, 0.9) 100%);
+    padding: 30px 0;
     text-align: center;
-    border-bottom: 4px solid var(--primary-color);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 4px solid rgba(255, 183, 77, 0.5);
+    box-shadow: 0 4px 20px rgba(30, 136, 229, 0.2);
+    color: white;
+    position: relative;
+    overflow: hidden;
 }
-h1 { 
-    font-size: 2.8em; 
-    margin-bottom: 5px;
-    word-wrap: break-word;
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 183, 77, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+header .container {
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 2.8em;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.2em;
+    margin-top: 10px;
 }
 
 /* --- Hero block --- */
 .hero {
     text-align: center;
-    background: #ffffff;
-    padding: 60px 20px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.98) 0%, 
+        rgba(227, 242, 253, 0.4) 100%);
+    padding: 60px 30px;
+    border: 2px solid rgba(179, 229, 252, 0.5);
+    position: relative;
+    overflow: hidden;
 }
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        var(--primary-color), 
+        var(--accent-color), 
+        var(--secondary-color));
+}
+
 .hero img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid var(--primary-color);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    margin-bottom: 20px;
+    border: 5px solid rgba(30, 136, 229, 0.3);
+    box-shadow: 
+        0 10px 25px rgba(30, 136, 229, 0.15),
+        0 5px 15px rgba(179, 229, 252, 0.3),
+        inset 0 0 0 5px rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
-.hero p { 
-    font-size: 1.3em; 
-    color: #555;
-    margin: 10px 0;
+
+.hero img:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 15px 35px rgba(30, 136, 229, 0.25),
+        0 8px 20px rgba(179, 229, 252, 0.4);
+}
+
+.hero p {
+    font-size: 1.3em;
+    color: var(--text-color);
+    margin: 12px 0;
+    position: relative;
+    z-index: 1;
 }
 
 /* --- Счетчик сбора --- */
 .progress-section {
     text-align: center;
-    background: #ffffff;
-    margin: 20px 0;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, 
+        rgba(227, 242, 253, 0.7) 0%, 
+        rgba(179, 229, 252, 0.4) 100%);
+    margin: 25px 0;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 
+        0 8px 25px rgba(30, 136, 229, 0.15),
+        0 4px 10px rgba(179, 229, 252, 0.25);
+    border: 2px solid rgba(30, 136, 229, 0.2);
 }
 
 .progress-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 10px;
-    border: 2px solid #e9ecef;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    border: 2px solid rgba(179, 229, 252, 0.5);
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.1);
 }
 
 .progress-info {
@@ -99,8 +246,8 @@ h1 {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 15px;
-    gap: 15px;
+    margin-bottom: 20px;
+    gap: 20px;
 }
 
 .amount-info {
@@ -113,109 +260,201 @@ h1 {
 .amount-info .collected {
     font-size: 2.2em;
     font-weight: bold;
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
     line-height: 1;
+    text-shadow: 1px 1px 2px rgba(76, 175, 80, 0.2);
 }
 
 .amount-info .target {
     font-size: 1.1em;
-    color: #666;
-    margin-top: 5px;
+    color: var(--text-color);
+    margin-top: 8px;
+    opacity: 0.8;
 }
 
 .percentage {
     font-size: 2.5em;
     font-weight: bold;
-    color: var(--primary-color);
-    background: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), #42A5F5);
+    padding: 12px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .progress-bar {
-    height: 25px;
-    background: #e9ecef;
-    border-radius: 12px;
+    height: 28px;
+    background: rgba(227, 242, 253, 0.5);
+    border-radius: 14px;
     overflow: hidden;
-    margin: 20px 0;
+    margin: 25px 0;
     position: relative;
+    border: 2px solid rgba(179, 229, 252, 0.5);
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #28a745, #20c997);
-    border-radius: 12px;
-    width: 35%;
-    transition: width 1.5s ease-in-out;
+    background: linear-gradient(90deg, 
+        #42A5F5, 
+        #64B5F6, 
+        #90CAF9);
+    border-radius: 14px;
+    width: 0%;
+    transition: width 2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 .progress-stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #666;
+    margin-top: 15px;
+    font-size: 0.95em;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 .progress-text {
-    margin-top: 20px;
-    font-size: 1.1em;
-    color: #28a745;
+    margin-top: 25px;
+    font-size: 1.2em;
+    color: #2E7D32;
     font-weight: bold;
-    padding: 10px;
-    background: #d4edda;
-    border-radius: 8px;
-    border-left: 4px solid #28a745;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(200, 230, 201, 0.8), rgba(165, 214, 167, 0.9));
+    border-radius: 12px;
+    border-left: 5px solid #4CAF50;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
 .last-updated {
-    font-size: 0.9em;
-    color: #6c757d;
+    font-size: 0.95em;
+    color: #546E7A;
     margin-top: 15px;
     font-style: italic;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    display: inline-block;
+    border: 1px solid rgba(179, 229, 252, 0.5);
 }
 
 /* --- Highlight box (для стоимости) --- */
 .highlight {
-    background: #fff3cd; /* Желтый оттенок для внимания */
-    border-left: 6px solid #ffc107;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
+    background: linear-gradient(135deg, 
+        rgba(255, 248, 225, 0.9) 0%, 
+        rgba(255, 236, 179, 0.7) 100%);
+    border-left: 6px solid var(--accent-color);
+    padding: 25px;
+    margin: 25px 0;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(255, 183, 77, 0.15);
+    border: 1px solid rgba(255, 183, 77, 0.3);
 }
+
 .highlight ul {
     list-style-type: none;
     padding-left: 0;
-    margin: 10px 0;
+    margin: 15px 0;
 }
+
 .highlight li {
-    padding: 8px 0;
-    border-bottom: 1px dotted #ccc;
+    padding: 12px 0;
+    border-bottom: 1px dashed rgba(255, 183, 77, 0.5);
+    position: relative;
+    padding-left: 30px;
 }
-.highlight h3 { color: #ffc107; margin-top: 0; }
+
+.highlight li:before {
+    content: "🌸";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 1.2em;
+}
+
+.highlight h3 { 
+    color: #FF9800 !important; 
+    margin-top: 0; 
+}
 
 /* --- Donate button --- */
 .btn-donate {
     display: inline-block;
-    background-color: var(--secondary-color);
-    color: #fff;
+    background: linear-gradient(135deg, 
+        var(--secondary-color), 
+        #66BB6A);
+    color: white;
     font-weight: bold;
     font-size: 1.4em;
-    padding: 15px 40px;
-    border-radius: 8px;
+    padding: 18px 45px;
+    border-radius: 50px;
     text-decoration: none;
-    margin: 20px 0;
-    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
-    transition: background-color 0.3s, transform 0.3s;
+    margin: 25px 0;
+    box-shadow: 
+        0 8px 20px rgba(76, 175, 80, 0.3),
+        0 4px 10px rgba(102, 187, 106, 0.4);
+    transition: all 0.3s ease;
     text-align: center;
     width: 100%;
     max-width: 400px;
     box-sizing: border-box;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
+
+.btn-donate::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.7s;
+}
+
 .btn-donate:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, 
+        #43A047, 
+        #2E7D32);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 
+        0 12px 25px rgba(76, 175, 80, 0.4),
+        0 6px 15px rgba(102, 187, 106, 0.5);
+}
+
+.btn-donate:hover::before {
+    left: 100%;
+}
+
+.btn-donate:active {
+    transform: translateY(1px);
 }
 
 /* --- Requisites --- */
@@ -223,104 +462,250 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    margin-top: 20px;
+    margin-top: 25px;
 }
+
 .card {
-    background: #f9f9f9;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(227, 242, 253, 0.6) 100%);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(30, 136, 229, 0.1);
+    border: 2px solid rgba(179, 229, 252, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
-.card p { 
-    margin: 5px 0;
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        var(--primary-color), 
+        var(--accent-color));
+    opacity: 0.7;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 10px 30px rgba(30, 136, 229, 0.2),
+        0 5px 15px rgba(179, 229, 252, 0.3);
+}
+
+.card:first-child {
+    border-top-color: var(--primary-color);
+}
+
+.card:last-child {
+    border-top-color: #E91E63;
+}
+
+.card p {
+    margin: 10px 0;
     word-break: break-word;
+    color: var(--text-color);
 }
-.card strong { color: var(--primary-color); }
+
+.card strong {
+    color: var(--primary-color) !important;
+    font-size: 1.1em;
+}
 
 /* Кликабельные номера карт */
 .bank-card {
     display: inline-block;
-    background: #f1f8ff;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #cce5ff;
+    background: linear-gradient(135deg, 
+        rgba(227, 242, 253, 0.8) 0%, 
+        rgba(179, 229, 252, 0.6) 100%);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 2px solid rgba(30, 136, 229, 0.3);
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     font-family: 'Courier New', monospace;
     font-weight: bold;
-    margin: 2px 0;
+    margin: 4px 0;
     user-select: all;
     -webkit-user-select: all;
     -moz-user-select: all;
     -ms-user-select: all;
+    box-shadow: 0 3px 8px rgba(30, 136, 229, 0.15);
+    color: var(--text-color);
 }
+
 .bank-card:hover {
-    background: #d1ecf1;
-    border-color: #bee5eb;
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, 
+        rgba(179, 229, 252, 0.8) 0%, 
+        rgba(144, 202, 249, 0.6) 100%);
+    border-color: var(--primary-color);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.25);
 }
+
 .bank-card.copied {
-    background: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
+    background: linear-gradient(135deg, 
+        rgba(200, 230, 201, 0.8) 0%, 
+        rgba(165, 214, 167, 0.6) 100%);
+    border-color: #4CAF50;
+    color: #2E7D32;
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 /* Ссылка на Instagram */
 .instagram-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+    gap: 12px;
+    background: linear-gradient(45deg, 
+        #405DE6, #5851DB, #833AB4, #C13584, #E1306C);
     color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 12px 25px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: bold;
     margin-top: 15px;
-    transition: transform 0.3s, opacity 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(193, 53, 132, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 .instagram-link:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(193, 53, 132, 0.4);
+}
+
+/* Ссылка на WhatsApp */
+.whatsapp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.whatsapp-link:hover {
     transform: translateY(-2px);
-    opacity: 0.9;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
 }
 
 /* --- Gallery (Документы) --- */
 .gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 25px;
 }
+
 .gallery img {
     width: 100%;
     max-width: 300px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 
+        0 6px 20px rgba(30, 136, 229, 0.15),
+        0 3px 10px rgba(179, 229, 252, 0.25);
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    position: relative;
 }
+
 .gallery img:hover {
-    transform: scale(1.03);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 
+        0 15px 35px rgba(30, 136, 229, 0.25),
+        0 8px 20px rgba(179, 229, 252, 0.35);
 }
-.gallery a { 
-    text-decoration: none; 
+
+.gallery a {
+    text-decoration: none;
     color: inherit;
     flex: 1;
     min-width: 250px;
+    position: relative;
+}
+
+/* Декоративный эффект при наведении на галерею */
+.gallery a::after {
+    content: '🔍';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 2em;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.gallery a:hover::after {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* --- Footer --- */
 footer {
     text-align: center;
-    font-size: 0.9em;
-    color: #666;
-    padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-size: 0.95em;
+    color: white;
+    padding: 35px;
+    background: linear-gradient(135deg, 
+        rgba(30, 136, 229, 0.95) 0%, 
+        rgba(25, 118, 210, 0.9) 100%);
+    border-radius: 20px;
+    margin-top: 35px;
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.25);
+    border-top: 4px solid rgba(255, 183, 77, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='white' opacity='0.1'/%3E%3C/svg%3E");
+    background-size: 100px;
+    pointer-events: none;
+}
+
+footer a {
+    color: #FFD54F;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted rgba(255, 213, 79, 0.3);
+}
+
+footer a:hover {
+    color: #FFECB3;
+    border-bottom-color: #FFECB3;
 }
 
 /* Уведомление о копировании */
@@ -328,20 +713,35 @@ footer {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #28a745;
+    background: linear-gradient(135deg, 
+        var(--secondary-color), 
+        #66BB6A);
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
     z-index: 1000;
     opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(-20px) scale(0.9);
+    transition: all 0.3s ease;
     font-weight: bold;
+    border-left: 5px solid var(--accent-color);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
 }
+
 .copy-notification.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+}
+
+/* Декоративные элементы */
+.flower-decoration {
+    position: absolute;
+    font-size: 1.5em;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* --- Responsive --- */
@@ -351,7 +751,7 @@ footer {
     }
     
     header {
-        padding: 15px 0;
+        padding: 25px 0;
     }
     
     h1 {
@@ -364,13 +764,13 @@ footer {
     }
     
     section {
-        padding: 20px;
-        margin: 15px 0;
-        border-radius: 10px;
+        padding: 25px 20px;
+        margin: 20px 0;
+        border-radius: 15px;
     }
     
     .hero {
-        padding: 40px 15px;
+        padding: 40px 20px;
     }
     
     .hero img {
@@ -384,10 +784,10 @@ footer {
     
     .btn-donate {
         font-size: 1.2em;
-        padding: 15px 25px;
+        padding: 16px 30px;
         width: 100%;
         max-width: 100%;
-        box-sizing: border-box;
+        border-radius: 40px;
     }
     
     .requisites {
@@ -396,15 +796,15 @@ footer {
     }
     
     .card {
-        padding: 20px;
+        padding: 25px 20px;
     }
     
     .highlight {
-        padding: 15px;
+        padding: 20px;
     }
     
     .highlight li {
-        padding: 6px 0;
+        padding: 10px 0;
         font-size: 0.95em;
     }
     
@@ -417,7 +817,7 @@ footer {
     }
     
     footer {
-        padding: 15px;
+        padding: 25px 15px;
         font-size: 0.85em;
     }
     
@@ -439,11 +839,11 @@ footer {
     
     .percentage {
         font-size: 2em;
-        padding: 8px 15px;
+        padding: 10px 20px;
     }
     
     .progress-bar {
-        height: 20px;
+        height: 22px;
     }
 }
 
@@ -467,20 +867,20 @@ footer {
     
     .btn-donate {
         font-size: 1.1em;
-        padding: 12px 20px;
+        padding: 14px 25px;
     }
     
     .bank-card {
-        padding: 6px 10px;
+        padding: 8px 12px;
         font-size: 0.9em;
     }
     
     section {
-        padding: 15px;
+        padding: 20px 15px;
     }
     
-    .instagram-link {
-        padding: 8px 15px;
+    .instagram-link, .whatsapp-link {
+        padding: 10px 18px;
         font-size: 0.9em;
     }
     
@@ -491,7 +891,13 @@ footer {
     
     .percentage {
         font-size: 1.8em;
-        padding: 6px 12px;
+        padding: 8px 16px;
+    }
+    
+    .progress-stats {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 }
 </style>
@@ -500,6 +906,12 @@ footer {
 
 <!-- Уведомление о копировании -->
 <div class="copy-notification" id="copyNotification">Номер карты скопирован!</div>
+
+<!-- Декоративные цветочки -->
+<div class="flower-decoration" style="top: 10%; left: 5%;">🌸</div>
+<div class="flower-decoration" style="top: 15%; right: 8%;">🌼</div>
+<div class="flower-decoration" style="bottom: 20%; left: 10%;">🌺</div>
+<div class="flower-decoration" style="bottom: 15%; right: 5%;">💮</div>
 
 <header>
     <div class="container">
@@ -514,7 +926,7 @@ footer {
     <img src="Aiyana.png" alt="Нуртаева Айяна">
     <p><strong>Нуртаева Айяна, 13 лет</strong></p>
     <p>г. Астана, Казахстан</p>
-    <p style="font-style: italic; font-weight: bold; color: var(--secondary-color);">"Каждый день — это надежда. Каждый взнос — это шанс."</p>
+    <p style="font-style: italic; font-weight: bold; color: var(--primary-color);">"Каждый день — это надежда. Каждый взнос — это шанс."</p>
     <a href="#requisites" class="btn-donate">ПОМОЧЬ СЕЙЧАС ($243 000 USD)</a>
 </section>
 
@@ -524,10 +936,10 @@ footer {
     <div class="progress-container">
         <div class="progress-info">
             <div class="amount-info">
-                <div class="collected" id="collectedAmount">$85,000</div>
+                <div class="collected" id="collectedAmount">$0</div>
                 <div class="target">из $243,000</div>
             </div>
-            <div class="percentage" id="percentage">35%</div>
+            <div class="percentage" id="percentage">0%</div>
         </div>
         
         <div class="progress-bar">
@@ -535,16 +947,16 @@ footer {
         </div>
         
         <div class="progress-stats">
-            <div>Собрано: <strong id="collectedValue">85,000</strong> USD</div>
-            <div>Осталось: <strong id="remainingValue">158,000</strong> USD</div>
+            <div>Собрано: <strong id="collectedValue">0</strong> USD</div>
+            <div>Осталось: <strong id="remainingValue">243,000</strong> USD</div>
         </div>
         
         <div class="progress-text" id="progressText">
-            Уже 35% от цели собрано! Спасибо каждому, кто помогает!
+            Сбор только начался! Каждый вклад важен!
         </div>
         
         <div class="last-updated" id="lastUpdated">
-            Данные обновлены: 20 декабря 2024, 10:00
+            Данные обновлены: 16 декабря 2025, 22:00
         </div>
     </div>
 </section>
@@ -588,16 +1000,31 @@ footer {
         <div class="card">
             <h3>Контактное лицо</h3>
             <p><strong>Мама:</strong> Елена Джансагимова</p>
-            <p><strong>Телефон / WhatsApp:</strong>
-                <a href="tel:+77026102222" style="font-weight: bold;">+7 702 610 22 22</a>
+            
+            <!-- Ссылка на WhatsApp -->
+            <p><strong>WhatsApp:</strong><br>
+                <a href="https://wa.me/77026102222" target="_blank" class="whatsapp-link">
+                    📱 +7 702 610 22 22
+                </a>
             </p>
+            
+            <!-- Телефон как обычная ссылка -->
+            <p><strong>Телефон:</strong><br>
+                <a href="tel:+77026102222" style="font-weight: bold; color: var(--primary-color); text-decoration: none; border-bottom: 1px dotted var(--primary-color);">
+                    +7 702 610 22 22
+                </a>
+            </p>
+            
             <!-- Ссылка на Instagram -->
             <p><strong>Instagram:</strong><br>
                 <a href="https://www.instagram.com/help_aiyana_nurtaeva?igsh=MWhic2EzdXBlMDNlbw==" target="_blank" class="instagram-link">
-                    📱 @help_aiyana_nurtaeva
+                    📷 @help_aiyana_nurtaeva
                 </a>
             </p>
-            <p style="margin-top: 15px; font-style: italic;">"Один перевод — одна капля надежды. Вместе — океан спасения."</p>
+            
+            <p style="margin-top: 20px; font-style: italic; color: var(--text-color); padding: 15px; background: rgba(179, 229, 252, 0.2); border-radius: 10px; border-left: 4px solid var(--primary-color);">
+                "Один перевод — одна капля надежды. Вместе — океан спасения."
+            </p>
         </div>
     </div>
 </section>
@@ -620,9 +1047,12 @@ footer {
 
 <footer>
     <div class="container">
-        <p>Сбор средств для Нуртаевой Айяны • По вопросам сотрудничества: +7 702 610 22 22</p>
-        <p>
-            <a href="https://instagram.com/help_aiyana" target="_blank" style="color: #E1306C; font-weight: bold; text-decoration: none;">
+        <p>Сбор средств для Нуртаевой Айяны • По вопросам сотрудничества: 
+            <a href="tel:+77026102222">+7 702 610 22 22</a> • 
+            <a href="https://wa.me/77026102222" target="_blank">WhatsApp</a>
+        </p>
+        <p style="margin-top: 15px;">
+            <a href="https://www.instagram.com/help_aiyana_nurtaeva?igsh=MWhic2EzdXBlMDNlbw==" target="_blank">
                 Следите за новостями в Instagram: @help_aiyana_nurtaeva
             </a>
         </p>
@@ -675,7 +1105,7 @@ function copyCardNumber(cardNumber) {
 // Здесь вы можете менять эти значения каждые 2 часа
 const fundraisingData = {
     collected: 0,           // Текущая собранная сумма в USD
-    target: 243000,             // Целевая сумма (не менять)
+    target: 243000,         // Целевая сумма (не менять)
     lastUpdated: "16 декабря 2025, 22:00"  // Дата последнего обновления
 };
 // ============================================
@@ -699,13 +1129,17 @@ function updateProgressCounter() {
     document.getElementById('percentage').textContent = `${percentage.toFixed(1)}%`;
     document.getElementById('lastUpdated').textContent = `Данные обновлены: ${fundraisingData.lastUpdated}`;
     
-    // Обновляем прогресс-бар
-    document.getElementById('progressFill').style.width = `${percentage}%`;
+    // Анимируем прогресс-бар
+    setTimeout(() => {
+        document.getElementById('progressFill').style.width = `${percentage}%`;
+    }, 100);
     
     // Обновляем текст в зависимости от прогресса
     let progressText = "";
-    if (percentage < 25) {
+    if (collected === 0) {
         progressText = "Сбор только начался! Каждый вклад важен!";
+    } else if (percentage < 25) {
+        progressText = "Сбор начался! Каждый вклад приближает нас к цели!";
     } else if (percentage < 50) {
         progressText = "Уже собрано более четверти от цели! Продолжаем в том же духе!";
     } else if (percentage < 75) {
@@ -716,7 +1150,7 @@ function updateProgressCounter() {
         progressText = "Мы почти у цели! Последний рывок для спасения жизни!";
     } else if (percentage >= 100) {
         progressText = "Сбор завершен! Спасибо всем, кто помог Айяне!";
-        document.getElementById('progressText').style.background = '#28a745';
+        document.getElementById('progressText').style.background = 'linear-gradient(135deg, #4CAF50, #2E7D32)';
         document.getElementById('progressText').style.color = 'white';
     }
     
@@ -738,7 +1172,7 @@ document.querySelectorAll('.bank-card').forEach(card => {
 function checkViewport() {
     if (window.innerWidth <= 480) {
         document.querySelectorAll('section').forEach(section => {
-            section.style.margin = '10px 0';
+            section.style.margin = '15px 0';
         });
     }
 }
@@ -747,6 +1181,13 @@ function checkViewport() {
 window.addEventListener('load', () => {
     checkViewport();
     updateProgressCounter(); // Обновляем счетчик при загрузке
+    
+    // Анимация прогресс-бара
+    setTimeout(() => {
+        const progressFill = document.getElementById('progressFill');
+        const percentage = (fundraisingData.collected / fundraisingData.target) * 100;
+        progressFill.style.width = `${percentage}%`;
+    }, 500);
 });
 
 window.addEventListener('resize', checkViewport);
@@ -775,11 +1216,11 @@ console.log(`
 Каждые 2 часа необходимо обновлять данные о сборе:
 
 1. Откройте этот файл в редакторе кода
-2. Найдите строки (примерно с 352 по 358):
+2. Найдите строки (примерно с 420 по 426):
    const fundraisingData = {
-       collected: 85000,           // ← Измените эту цифру
+       collected: 0,           // ← Измените эту цифру
        target: 243000,
-       lastUpdated: "20 декабря 2024, 10:00"  // ← Обновите дату и время
+       lastUpdated: "16 декабря 2025, 22:00"  // ← Обновите дату и время
    };
 
 3. Измените значение 'collected' на новую сумму
@@ -794,4 +1235,3 @@ console.log(`
 
 </body>
 </html>
-
