@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спасите Жизнь Айяны | Срочный Сбор Средств</title>
+<style>
+/* --- Глобальные Стили и Градиентный Фон --- */
+:root {
+    --primary-color: #007bff; /* Синий - для акцентов и заголовков */
+    --secondary-color: #28a745; /* Зеленый - для кнопки пожертвования */
+    --gradient-start: #e0f7fa; /* Очень светло-голубой */
+    --gradient-end: #b3e5fc; /* Нежно-голубой */
+    --text-color: #333;
+    --font-family: 'Arial', sans-serif;
+}
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    /* Нежно-голубой градиентный фон */
+    background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    background-attachment: fixed; /* Фиксирует фон при прокрутке */
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+h1, h2 { color: var(--primary-color); }
+section {
+    background: #ffffff;
+    margin: 20px 0;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    animation: fadeInUp 0.8s forwards;
+    opacity: 1; /* Убран эффект opacity для упрощения */
+}
+/* --- Header --- */
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 4px solid var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+h1 { font-size: 2.8em; margin-bottom: 5px; }
+
+/* --- Hero block --- */
+.hero {
+    text-align: center;
+    background: #ffffff;
+    padding: 60px 20px;
+}
+.hero img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+.hero p { font-size: 1.3em; color: #555; }
+
+/* --- Highlight box (для стоимости) --- */
+.highlight {
+    background: #fff3cd; /* Желтый оттенок для внимания */
+    border-left: 6px solid #ffc107;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+.highlight ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.highlight li {
+    padding: 5px 0;
+    border-bottom: 1px dotted #ccc;
+}
+.highlight h3 { color: #ffc107; margin-top: 0; }
+
+/* --- Donate button --- */
+.btn-donate {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.4em;
+    padding: 15px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.btn-donate:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* --- Requisites --- */
+.requisites {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+.card {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.card p { margin: 5px 0; }
+.card strong { color: var(--primary-color); }
+
+/* --- Gallery (Документы) --- */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.gallery img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.gallery a { text-decoration: none; color: inherit; }
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+    padding: 20px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .requisites { grid-template-columns: 1fr; }
+    .hero img { width: 150px; height: 150px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>СПАСИТЕ ЖИЗНЬ АЙЯНЫ!</h1>
+        <p>Срочный сбор средств на лечение Острого лимфобластного лейкоза в Турции.</p>
+    </div>
+</header>
+
+<div class="container">
+
+<section class="hero">
+    <img src="Aiyana.png" alt="Нуртаева Айяна">
+    <p><strong>Нуртаева Айяна, 13 лет</strong></p>
+    <p>г. Астана, Казахстан</p>
+    <p style="font-style: italic; font-weight: bold; color: var(--secondary-color);">"Каждый день — это надежда. Каждый взнос — это шанс."</p>
+    <a href="#requisites" class="btn-donate">ПОМОЧЬ СЕЙЧАС ($243 000 USD)</a>
+</section>
+
+<section>
+    <h2>Диагноз и единственный шанс</h2>
+    <div class="highlight">
+        Айяне поставлен диагноз: <strong>Acute Lymphoblastic Leukemia (Острый лимфобластный лейкоз)</strong>,
+        осложнённый <strong>сахарным диабетом 1 типа</strong>.
+    </div>
+    <p>Врачи подтвердили, что для борьбы с рефрактерной формой ОЛЛ необходима сложнейшая процедура, включающая
+    <strong style="color:#dc3545;">CAR-T терапию</strong> и последующую <strong>трансплантацию костного мозга</strong>.</p>
+    <p>Лечение будет проводиться в высокоспециализированном госпитале <strong>Acibadem (Стамбул, Турция)</strong>, где Айяне готовы оказать необходимую помощь.</p>
+</section>
+
+<section>
+    <h2>Стоимость лечения: $243 000 USD</h2>
+    <div class="highlight">
+        <p style="font-weight: bold; font-size: 1.1em;">Общая сумма сбора: $243 000 USD.</p>
+        <p>Согласно счету из клиники Acibadem, общая стоимость лечения составляет <strong>$243 000 USD</strong>. Средства пойдут на:</p>
+        <ul>
+            <li>CAR-T терапия (включая 60 дней госпитализации): **$110 000 USD**</li>
+            <li>Трансплантация костного мозга (90 дней госпитализации): **$100 000 USD**</li>
+            <li>Курс иммунотерапии (28 дней): **$33 000 USD**</li>
+        </ul>
+    </div>
+    <a href="#requisites" class="btn-donate">СДЕЛАТЬ ВЗНОС И ПОДАРИТЬ ШАНС</a>
+</section>
+
+<section id="requisites">
+    <h2>Реквизиты для помощи</h2>
+    <p style="text-align: center;"><em>Пожалуйста, укажите назначение платежа: «Помощь Айяне»</em></p>
+    <div class="requisites">
+        <div class="card">
+            <h3>Банковские карты (Казахстан)</h3>
+            <p><strong>Forte Bank:</strong> 4042 4386 0163 6362</p>
+            <p><strong>Kaspi Bank:</strong> 4400 4303 2188 7934</p>
+            <p><strong>Halyk Bank:</strong> 4146 2130 5771 5241</p>
+            <p style="margin-top: 15px;">*Владелец карт: Мама Елена Д.</p>
+        </div>
+        <div class="card">
+            <h3>Контактное лицо</h3>
+            <p><strong>Мама:</strong> Елена Д.</p>
+            <p><strong>Телефон / WhatsApp:</strong>
+                <a href="tel:+77026102222" style="font-weight: bold;">+7 702 610 22 22</a>
+            </p>
+            <p style="margin-top: 15px; font-style: italic;">"Один перевод — одна капля надежды. Вместе — океан спасения."</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Официальные Документы и Прозрачность</h2>
+    <p>Нажмите на изображение, чтобы просмотреть документ в полном размере. Все документы предоставлены госпиталем Acibadem.</p>
+    <div class="gallery">
+        <a href="IMG-20251216-WA0040.jpg" target="_blank">
+            <img src="IMG-20251216-WA0040.jpg" alt="Счёт из клиники Acibadem: $243 000 USD">
+        </a>
+        <a href="IMG-20251216-WA0043.jpg" target="_blank">
+            <img src="IMG-20251216-WA0043.jpg" alt="Медицинский отчет и план лечения">
+        </a>
+        <a href="17058.png" target="_blank">
+            <img src="17058.png" alt="Подтверждение диагноза (Acute Lymphoblastic Leukemia)">
+        </a>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>Сбор средств для Нуртаевой Айяны • По вопросам сотрудничества: +7 702 610 22 22</p>
+    </div>
+</footer>
+
+</body>
+</html>
