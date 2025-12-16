@@ -23,6 +23,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Предотвращает авто-масштабирование текста на iOS */
 }
 .container {
     max-width: 1000px;
@@ -47,7 +48,11 @@ header {
     border-bottom: 4px solid var(--primary-color);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-h1 { font-size: 2.8em; margin-bottom: 5px; }
+h1 { 
+    font-size: 2.8em; 
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
 
 /* --- Hero block --- */
 .hero {
@@ -64,7 +69,11 @@ h1 { font-size: 2.8em; margin-bottom: 5px; }
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     margin-bottom: 20px;
 }
-.hero p { font-size: 1.3em; color: #555; }
+.hero p { 
+    font-size: 1.3em; 
+    color: #555;
+    margin: 10px 0;
+}
 
 /* --- Highlight box (для стоимости) --- */
 .highlight {
@@ -77,9 +86,10 @@ h1 { font-size: 2.8em; margin-bottom: 5px; }
 .highlight ul {
     list-style-type: none;
     padding-left: 0;
+    margin: 10px 0;
 }
 .highlight li {
-    padding: 5px 0;
+    padding: 8px 0;
     border-bottom: 1px dotted #ccc;
 }
 .highlight h3 { color: #ffc107; margin-top: 0; }
@@ -97,6 +107,10 @@ h1 { font-size: 2.8em; margin-bottom: 5px; }
     margin: 20px 0;
     box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
     transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
 }
 .btn-donate:hover {
     background-color: #218838;
@@ -116,8 +130,58 @@ h1 { font-size: 2.8em; margin-bottom: 5px; }
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-.card p { margin: 5px 0; }
+.card p { 
+    margin: 5px 0;
+    word-break: break-word;
+}
 .card strong { color: var(--primary-color); }
+
+/* Кликабельные номера карт */
+.bank-card {
+    display: inline-block;
+    background: #f1f8ff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #cce5ff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    margin: 2px 0;
+    user-select: all;
+    -webkit-user-select: all;
+    -moz-user-select: all;
+    -ms-user-select: all;
+}
+.bank-card:hover {
+    background: #d1ecf1;
+    border-color: #bee5eb;
+    transform: translateY(-1px);
+}
+.bank-card.copied {
+    background: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Ссылка на Instagram */
+.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+.instagram-link:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
 
 /* --- Gallery (Документы) --- */
 .gallery {
@@ -134,8 +198,17 @@ h1 { font-size: 2.8em; margin-bottom: 5px; }
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     cursor: pointer;
+    transition: transform 0.3s;
 }
-.gallery a { text-decoration: none; color: inherit; }
+.gallery img:hover {
+    transform: scale(1.03);
+}
+.gallery a { 
+    text-decoration: none; 
+    color: inherit;
+    flex: 1;
+    min-width: 250px;
+}
 
 /* --- Footer --- */
 footer {
@@ -143,16 +216,154 @@ footer {
     font-size: 0.9em;
     color: #666;
     padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Уведомление о копировании */
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+    font-weight: bold;
+}
+.copy-notification.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-    .requisites { grid-template-columns: 1fr; }
-    .hero img { width: 150px; height: 150px; }
+    .container {
+        padding: 15px;
+    }
+    
+    header {
+        padding: 15px 0;
+    }
+    
+    h1 {
+        font-size: 2em;
+        line-height: 1.3;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    section {
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 10px;
+    }
+    
+    .hero {
+        padding: 40px 15px;
+    }
+    
+    .hero img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .hero p {
+        font-size: 1.1em;
+    }
+    
+    .btn-donate {
+        font-size: 1.2em;
+        padding: 15px 25px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .requisites {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .highlight {
+        padding: 15px;
+    }
+    
+    .highlight li {
+        padding: 6px 0;
+        font-size: 0.95em;
+    }
+    
+    .gallery {
+        gap: 15px;
+    }
+    
+    .gallery a {
+        min-width: 100%;
+    }
+    
+    footer {
+        padding: 15px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.7em;
+    }
+    
+    h2 {
+        font-size: 1.3em;
+    }
+    
+    .hero img {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .hero p {
+        font-size: 1em;
+    }
+    
+    .btn-donate {
+        font-size: 1.1em;
+        padding: 12px 20px;
+    }
+    
+    .bank-card {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+    
+    section {
+        padding: 15px;
+    }
+    
+    .instagram-link {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
 }
 </style>
 </head>
 <body>
+
+<!-- Уведомление о копировании -->
+<div class="copy-notification" id="copyNotification">Номер карты скопирован!</div>
 
 <header>
     <div class="container">
@@ -202,16 +413,22 @@ footer {
     <div class="requisites">
         <div class="card">
             <h3>Банковские карты (Казахстан)</h3>
-            <p><strong>Forte Bank:</strong> 4042 4386 0163 6362</p>
-            <p><strong>Kaspi Bank:</strong> 4400 4303 2188 7934</p>
-            <p><strong>Halyk Bank:</strong> 4146 2130 5771 5241</p>
+            <p><strong>Forte Bank:</strong> <span class="bank-card" data-card="4042 4386 0163 6362">4042 4386 0163 6362</span></p>
+            <p><strong>Kaspi Bank:</strong> <span class="bank-card" data-card="4400 4303 2188 7934">4400 4303 2188 7934</span></p>
+            <p><strong>Halyk Bank:</strong> <span class="bank-card" data-card="4146 2130 5771 5241">4146 2130 5771 5241</span></p>
             <p style="margin-top: 15px;">*Владелец карт: Мама Yelena Jansagimova</p>
         </div>
         <div class="card">
             <h3>Контактное лицо</h3>
-            <p><strong>Мама:</strong> Елена Джансагимова.</p>
+            <p><strong>Мама:</strong> Елена Джансагимова</p>
             <p><strong>Телефон / WhatsApp:</strong>
                 <a href="tel:+77026102222" style="font-weight: bold;">+7 702 610 22 22</a>
+            </p>
+            <!-- Ссылка на Instagram -->
+            <p><strong>Instagram:</strong><br>
+                <a href="https://www.instagram.com/help_aiyana_nurtaeva?igsh=MWhic2EzdXBlMDNlbw==" target="_blank" class="instagram-link">
+                    📱 @help_aiyana_nurtaeva
+                </a>
             </p>
             <p style="margin-top: 15px; font-style: italic;">"Один перевод — одна капля надежды. Вместе — океан спасения."</p>
         </div>
@@ -237,9 +454,96 @@ footer {
 <footer>
     <div class="container">
         <p>Сбор средств для Нуртаевой Айяны • По вопросам сотрудничества: +7 702 610 22 22</p>
+        <p>
+            <a href="https://instagram.com/help_aiyana" target="_blank" style="color: #E1306C; font-weight: bold; text-decoration: none;">
+                Следите за новостями в Instagram: @help_aiyana_nurtaeva
+            </a>
+        </p>
     </div>
 </footer>
 
-</body>
+</div>
 
+<script>
+// Функция для копирования номера карты
+function copyCardNumber(cardNumber) {
+    navigator.clipboard.writeText(cardNumber).then(() => {
+        // Показываем уведомление
+        const notification = document.getElementById('copyNotification');
+        notification.textContent = 'Номер карты скопирован: ' + cardNumber;
+        notification.classList.add('show');
+        
+        // Скрываем уведомление через 3 секунды
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+        
+        // Визуальный эффект на скопированной карте
+        const clickedCard = event.target;
+        clickedCard.classList.add('copied');
+        setTimeout(() => {
+            clickedCard.classList.remove('copied');
+        }, 1000);
+    }).catch(err => {
+        console.error('Ошибка при копировании: ', err);
+        // Fallback для старых браузеров
+        const textArea = document.createElement('textarea');
+        textArea.value = cardNumber;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        const notification = document.getElementById('copyNotification');
+        notification.textContent = 'Номер карты скопирован!';
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    });
+}
+
+// Добавляем обработчики кликов на все номера карт
+document.querySelectorAll('.bank-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const cardNumber = this.getAttribute('data-card') || this.textContent.trim();
+        copyCardNumber(cardNumber);
+    });
+    
+    // Добавляем подсказку при наведении
+    card.title = 'Нажмите, чтобы скопировать номер карты';
+});
+
+// Улучшаем адаптивность для очень маленьких экранов
+function checkViewport() {
+    if (window.innerWidth <= 480) {
+        document.querySelectorAll('section').forEach(section => {
+            section.style.margin = '10px 0';
+        });
+    }
+}
+
+// Проверяем при загрузке и изменении размера окна
+window.addEventListener('load', checkViewport);
+window.addEventListener('resize', checkViewport);
+
+// Плавная прокрутка для якорей
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 20,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+</script>
+
+</body>
 </html>
