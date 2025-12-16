@@ -75,6 +75,107 @@ h1 {
     margin: 10px 0;
 }
 
+/* --- Счетчик сбора --- */
+.progress-section {
+    text-align: center;
+    background: #ffffff;
+    margin: 20px 0;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.progress-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.amount-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.amount-info .collected {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: var(--secondary-color);
+    line-height: 1;
+}
+
+.amount-info .target {
+    font-size: 1.1em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.percentage {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    height: 25px;
+    background: #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 12px;
+    width: 35%;
+    transition: width 1.5s ease-in-out;
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.progress-text {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #28a745;
+    font-weight: bold;
+    padding: 10px;
+    background: #d4edda;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+}
+
+.last-updated {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 15px;
+    font-style: italic;
+}
+
 /* --- Highlight box (для стоимости) --- */
 .highlight {
     background: #fff3cd; /* Желтый оттенок для внимания */
@@ -319,6 +420,31 @@ footer {
         padding: 15px;
         font-size: 0.85em;
     }
+    
+    /* Адаптивность для счетчика */
+    .progress-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .amount-info {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .amount-info .collected {
+        font-size: 1.8em;
+    }
+    
+    .percentage {
+        font-size: 2em;
+        padding: 8px 15px;
+    }
+    
+    .progress-bar {
+        height: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -357,6 +483,16 @@ footer {
         padding: 8px 15px;
         font-size: 0.9em;
     }
+    
+    /* Адаптивность для счетчика */
+    .amount-info .collected {
+        font-size: 1.6em;
+    }
+    
+    .percentage {
+        font-size: 1.8em;
+        padding: 6px 12px;
+    }
 }
 </style>
 </head>
@@ -380,6 +516,37 @@ footer {
     <p>г. Астана, Казахстан</p>
     <p style="font-style: italic; font-weight: bold; color: var(--secondary-color);">"Каждый день — это надежда. Каждый взнос — это шанс."</p>
     <a href="#requisites" class="btn-donate">ПОМОЧЬ СЕЙЧАС ($243 000 USD)</a>
+</section>
+
+<!-- Счетчик сбора средств -->
+<section class="progress-section">
+    <h2>Текущий прогресс сбора</h2>
+    <div class="progress-container">
+        <div class="progress-info">
+            <div class="amount-info">
+                <div class="collected" id="collectedAmount">$85,000</div>
+                <div class="target">из $243,000</div>
+            </div>
+            <div class="percentage" id="percentage">35%</div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <div class="progress-stats">
+            <div>Собрано: <strong id="collectedValue">85,000</strong> USD</div>
+            <div>Осталось: <strong id="remainingValue">158,000</strong> USD</div>
+        </div>
+        
+        <div class="progress-text" id="progressText">
+            Уже 35% от цели собрано! Спасибо каждому, кто помогает!
+        </div>
+        
+        <div class="last-updated" id="lastUpdated">
+            Данные обновлены: 20 декабря 2024, 10:00
+        </div>
+    </div>
 </section>
 
 <section>
@@ -503,6 +670,59 @@ function copyCardNumber(cardNumber) {
     });
 }
 
+// ДАННЫЕ ДЛЯ РУЧНОГО ОБНОВЛЕНИЯ КАЖДЫЕ 2 ЧАСА
+// ============================================
+// Здесь вы можете менять эти значения каждые 2 часа
+const fundraisingData = {
+    collected: 85000,           // Текущая собранная сумма в USD
+    target: 243000,             // Целевая сумма (не менять)
+    lastUpdated: "20 декабря 2024, 10:00"  // Дата последнего обновления
+};
+// ============================================
+
+// Функция обновления счетчика сбора
+function updateProgressCounter() {
+    const collected = fundraisingData.collected;
+    const target = fundraisingData.target;
+    const percentage = (collected / target) * 100;
+    const remaining = target - collected;
+    
+    // Форматирование чисел с разделителями
+    const formatNumber = (num) => {
+        return num.toLocaleString('en-US');
+    };
+    
+    // Обновляем значения на странице
+    document.getElementById('collectedAmount').textContent = `$${formatNumber(collected)}`;
+    document.getElementById('collectedValue').textContent = formatNumber(collected);
+    document.getElementById('remainingValue').textContent = formatNumber(remaining);
+    document.getElementById('percentage').textContent = `${percentage.toFixed(1)}%`;
+    document.getElementById('lastUpdated').textContent = `Данные обновлены: ${fundraisingData.lastUpdated}`;
+    
+    // Обновляем прогресс-бар
+    document.getElementById('progressFill').style.width = `${percentage}%`;
+    
+    // Обновляем текст в зависимости от прогресса
+    let progressText = "";
+    if (percentage < 25) {
+        progressText = "Сбор только начался! Каждый вклад важен!";
+    } else if (percentage < 50) {
+        progressText = "Уже собрано более четверти от цели! Продолжаем в том же духе!";
+    } else if (percentage < 75) {
+        progressText = "Полпути пройдено! Мы обязательно соберем нужную сумму!";
+    } else if (percentage < 90) {
+        progressText = "Осталось совсем немного! Спасибо всем, кто помогает Айяне!";
+    } else if (percentage < 100) {
+        progressText = "Мы почти у цели! Последний рывок для спасения жизни!";
+    } else if (percentage >= 100) {
+        progressText = "Сбор завершен! Спасибо всем, кто помог Айяне!";
+        document.getElementById('progressText').style.background = '#28a745';
+        document.getElementById('progressText').style.color = 'white';
+    }
+    
+    document.getElementById('progressText').textContent = progressText;
+}
+
 // Добавляем обработчики кликов на все номера карт
 document.querySelectorAll('.bank-card').forEach(card => {
     card.addEventListener('click', function() {
@@ -524,7 +744,11 @@ function checkViewport() {
 }
 
 // Проверяем при загрузке и изменении размера окна
-window.addEventListener('load', checkViewport);
+window.addEventListener('load', () => {
+    checkViewport();
+    updateProgressCounter(); // Обновляем счетчик при загрузке
+});
+
 window.addEventListener('resize', checkViewport);
 
 // Плавная прокрутка для якорей
@@ -543,6 +767,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Инструкция для администратора (выводится в консоль)
+console.log(`
+=== ИНСТРУКЦИЯ ДЛЯ ОБНОВЛЕНИЯ СЧЕТЧИКА ===
+
+Каждые 2 часа необходимо обновлять данные о сборе:
+
+1. Откройте этот файл в редакторе кода
+2. Найдите строки (примерно с 352 по 358):
+   const fundraisingData = {
+       collected: 85000,           // ← Измените эту цифру
+       target: 243000,
+       lastUpdated: "20 декабря 2024, 10:00"  // ← Обновите дату и время
+   };
+
+3. Измените значение 'collected' на новую сумму
+4. Обновите дату и время в 'lastUpdated'
+5. Сохраните файл и обновите страницу
+
+Текущий прогресс: ${((fundraisingData.collected / fundraisingData.target) * 100).toFixed(1)}%
+Собрано: $${fundraisingData.collected.toLocaleString()} из $${fundraisingData.target.toLocaleString()}
+Осталось собрать: $${(fundraisingData.target - fundraisingData.collected).toLocaleString()}
+`);
 </script>
 
 </body>
