@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спасите Жизнь Айяны | Срочный Сбор Средств</title>
+<link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+<style>
+:root {
+    --primary-color: #000000; /* Черный как в заголовках на фото */
+    --secondary-color: #28a745; 
+    --accent-color: #FFB74D; 
+    --bg-blue: #7198d1; /* Основной голубой фон из вложения */
+    --card-blue: #a0bbec; /* Цвет закругленных блоков из вложения */
+    --text-color: #000000;
+    --font-family: 'Arial', sans-serif;
+}
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    background-color: var(--bg-blue);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color) !important;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+section {
+    background-color: var(--card-blue) !important;
+    margin: 25px 0;
+    padding: 35px;
+    border-radius: 40px; /* Сильное скругление как на макете */
+    box-shadow: none;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+section {
+    background-color: var(--card-blue) !important;
+    margin: 25px 0;
+    padding: 35px;
+    border-radius: 40px; /* Сильное скругление как на макете */
+    box-shadow: none;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+header {
+    padding: 30px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2em;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 30px;
+}
+
+.hero img {
+    width: 220px;
+    height: 220px;
+    border-radius: 30px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    margin-bottom: 20px;
+}
+
+/* Красный текст для суммы, как на фото */
+.urgent-sum {
+    color: #ff0000 !important;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.progress-section {
+    background-color: rgba(255,255,255, 0.2) !important;
+}
+
+.progress-container {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.amount-info .collected {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #ff0000 !important;
+}
+
+.progress-bar {
+    height: 25px;
+    background: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #28a745;
+    width: 0%;
+    transition: width 2s ease;
+}
+
+.highlight {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 15px 0;
+}
+
+.btn-donate {
+    display: block;
+    background: #ff4d4d;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 400px;
+}
+
+.requisites {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 25px;
+    border-radius: 30px;
+}
+
+.bank-card {
+    display: inline-block;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.instagram-link {
+    display: inline-block;
+    background: #e1306c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.gallery img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 15px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.9em;
+}
+
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .requisites { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="copy-notification" id="copyNotification">Скопировано!</div>
+
+<header>
+    <div class="container">
+        <h1>🔴 СРОЧНЫЙ СБОР НА ЛЕЧЕНИЕ В ТУРЦИИ</h1>
+        <p>г.Стамбул, госпиталь "Acibadem"</p>
+    </div>
+</header>
+
+<div class="container">
+
+<section class="hero">
+    <img src="Aiyana.png" alt="Нуртаева Айяна">
+    <h2>Нуртаева Айяна</h2>
+    <p><strong>13 лет, г. Астана</strong></p>
+    <p class="urgent-sum">Необходимая сумма: 243 000 USD</p>
+    <p><em>"Каждый день — это надежда. Каждый взнос — это шанс."</em></p>
+</section>
+
+<section class="progress-section">
+    <h3>Прогресс сбора</h3>
+    <div class="progress-container">
+        <div class="amount-info">
+            <div class="collected" id="collectedAmount">$0</div>
+            <div style="font-size: 0.9em;">цель: $243,000</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div id="progressText" style="font-weight: bold; text-align: center;">Загрузка...</div>
+        <div id="lastUpdated" style="font-size: 0.8em; text-align: center; margin-top: 10px; color: #666;"></div>
+    </div>
+</section>
+
+<section>
+    <h2>Диагноз и план лечения</h2>
+    <div class="highlight">
+        <p><strong>Диагноз:</strong> Айяне поставлен диагноз: <strong>Acute Lymphoblastic Leukemia (Острый лимфобластный лейкоз), осложнённый сахарным диабетом 1 типа</strong>.</p>
+        <p>Врачи подтвердили, что для борьбы с рефрактерной формой ОЛЛ необходимо провести иммунотерапию с последующей <strong>трансплантацией костного мозга</strong> и <strong style="color:#dc3545;">CAR-T терапию</strong> для уничтожения устойчивых к химиотерапии опухолевых клеток и достижения ремиссии.</p>
+    </div>
+</section>
+
+<section>
+    <h2>Стоимость лечения: $243 000 USD</h2>
+    <div class="highlight">
+        <p>Согласно счету из клиники Acibadem, общая стоимость лечения составляет <strong>$243 000 USD</strong>. Средства пойдут на:</p>
+		<ul>
+			<li>Курс иммунотерапии (28 дней): **$33 000 USD**</li>
+            <li>Трансплантация костного мозга (90 дней госпитализации): **$100 000 USD**</li>
+            <li>CAR-T терапия (включая 60 дней госпитализации): **$110 000 USD**</li>
+        </ul>
+    </div>
+</section>
+
+<section id="requisites">
+    <h2>Реквизиты для помощи</h2>
+    <div class="requisites">
+        <div class="card">
+            <h3>Карты (РК)</h3>
+            <p>Forte Bank: <span class="bank-card" data-card="4042438601636362">4042 4386 0163 6362</span></p>
+            <p>Kaspi Bank: <span class="bank-card" data-card="4400430321887934">4400 4303 2188 7934</span></p>
+            <p>Halyk Bank: <span class="bank-card" data-card="4146213057715241">4146 2130 5771 5241</span></p>
+            <p><small>Мама: Yelena Jansagimova</small></p>
+			<p>PayPal: <span class="bank-card" data-card="NurlanJansagimov">NurlanJansagimov</span></p>
+			<p>PayPal: <span class="bank-card" data-card="d.nurlan-86@mail.ru">d.nurlan-86@mail.ru</span></p>
+			<p><small>Папа: Nurlan Jansagimov</small></p>
+        </div>
+        <div class="card">
+            <h3>Контакты</h3>
+            <p><strong>Мама:</strong> Елена Джансагимова</p>
+            
+            <!-- Ссылка на WhatsApp -->
+            <p><strong>WhatsApp:</strong><br>
+                <a href="https://wa.me/77026102222" target="_blank" class="whatsapp-link">
+                    📱 +7 702 610 22 22
+                </a>
+            </p>
+            
+            <!-- Телефон как обычная ссылка -->
+            <p><strong>Телефон:</strong><br>
+                <a href="tel:+77026102222" style="font-weight: bold; color: var(--primary-color); text-decoration: none; border-bottom: 1px dotted var(--primary-color);">
+                    +7 702 610 22 22
+                </a>
+            </p>
+            
+            <!-- Ссылка на Instagram -->
+            <p><strong>Instagram:</strong><br>
+                <a href="https://www.instagram.com/help_aiyana_nurtaeva?igsh=MWhic2EzdXBlMDNlbw==" target="_blank" class="instagram-link">
+                    📷 @help_aiyana_nurtaeva
+                </a>
+            </p>
+            <p style="margin-top: 10px;"><small>"Один перевод — одна капля надежды."</small></p>
+        </div>
+    </div>
+    <a href="#requisites" class="btn-donate">ПОДДЕРЖАТЬ АЙЯНУ</a>
+</section>
+
+<section>
+    <h2>Документы</h2>
+    <div class="gallery">
+        <a href="schet.jpg" target="_blank"><img src="schet.jpg" alt="Счет"></a>
+        <a href="17058.png" target="_blank"><img src="otchet.jpg" alt="Диагноз"></a>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>Сбор средств для Нуртаевой Айяны • По вопросам сотрудничества: 
+            <a href="tel:+77026102222">+7 702 610 22 22</a> • 
+            <a href="https://wa.me/77026102222" target="_blank">WhatsApp</a>
+        </p>
+        <p style="margin-top: 15px;">
+            <a href="https://www.instagram.com/help_aiyana_nurtaeva?igsh=MWhic2EzdXBlMDNlbw==" target="_blank">
+                Следите за новостями в Instagram: @help_aiyana_nurtaeva
+            </a>
+        </p>
+    </div>
+</footer>
+
+</div>
+
+<script>
+const fundraisingData = {
+    collected: 957, 
+    target: 243000, 
+    lastUpdated: "17 декабря 2025, 21:00"
+};
+
+function updateProgress() {
+    const percentage = (fundraisingData.collected / fundraisingData.target) * 100;
+    document.getElementById('collectedAmount').textContent = `$${fundraisingData.collected.toLocaleString()}`;
+    document.getElementById('progressFill').style.width = percentage + '%';
+    document.getElementById('progressText').textContent = `Собрано ${percentage.toFixed(2)}%`;
+    document.getElementById('lastUpdated').textContent = `Обновлено: ${fundraisingData.lastUpdated}`;
+}
+
+document.querySelectorAll('.bank-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const num = this.getAttribute('data-card');
+        navigator.clipboard.writeText(num);
+        const note = document.getElementById('copyNotification');
+        note.style.display = 'block';
+        setTimeout(() => note.style.display = 'none', 2000);
+    });
+});
+
+window.onload = updateProgress;
+</script>
+</body>
+</html>
