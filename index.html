@@ -249,7 +249,25 @@ section {
 </div>
 
 <script>
-const fundraisingData = { collected: 2369, target: 243000 };
+// Теперь это переменная, которую мы наполним данными из файла
+let fundraisingData = { collected: 0, target: 243000 };
+
+// Функция, которая скачивает свежие данные
+async function loadFundraisingData() {
+    try {
+        // Запрашиваем файл. ?t=... нужен, чтобы браузер не показывал старую сумму из памяти
+        const response = await fetch('data.json?t=' + Date.now());
+        const data = await response.json();
+        
+        // Обновляем нашу переменную
+        fundraisingData.collected = data.collected;
+        
+        // После того как данные загружены, пересчитываем прогресс-бар
+        updateProgress();
+    } catch (error) {
+        console.error("Не удалось загрузить данные из data.json:", error);
+    }
+}
 
 function updateProgress() {
     const percent = (fundraisingData.collected / fundraisingData.target) * 100;
@@ -385,6 +403,7 @@ function setLanguage(lang){
 
 const urlLang = new URLSearchParams(location.search).get("lang");
 setLanguage(urlLang || localStorage.getItem("siteLang") || "ru");
+	loadFundraisingData(); // Это заставит сайт пойти и прочитать сумму из data.json
 </script>
 
 </body>
