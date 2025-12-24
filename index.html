@@ -175,8 +175,8 @@ section {
     </div>
     
     <div id="progressText" style="font-size: 1.1em; margin-top: 5px;">Загрузка...</div>
-    <div id="updateTime" data-i18n="updated_at" style="text-align: center; color: #555; font-size: 0.85em; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
-        Обновлено: 17 декабря 2025, 21:00
+    <div id="updateTime" style="text-align: center; color: #555; font-size: 0.85em; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+        Загрузка даты...
     </div>
 </section>
 
@@ -249,49 +249,75 @@ section {
 </div>
 
 <script>
-// Теперь это переменная, которую мы наполним данными из файла
-let fundraisingData = { collected: 0, target: 243000 };
+// Глобальный объект данных
+let fundraisingData = { collected: 0, target: 243000, lastUpdate: "" };
 
-// Функция, которая скачивает свежие данные
 async function loadFundraisingData() {
     try {
-        // Запрашиваем файл. ?t=... нужен, чтобы браузер не показывал старую сумму из памяти
         const response = await fetch('data.json?t=' + Date.now());
         const data = await response.json();
         
-        // Обновляем нашу переменную
         fundraisingData.collected = data.collected;
+        fundraisingData.lastUpdate = data.updated_at || ""; 
         
-        // После того как данные загружены, пересчитываем прогресс-бар
         updateProgress();
     } catch (error) {
         console.error("Не удалось загрузить данные из data.json:", error);
     }
 }
 
+function updateTimeDisplay() {
+    if (!fundraisingData.lastUpdate) return;
+
+    // Парсим дату "ГГГГ-ММ-ДД ЧЧ:ММ"
+    const [datePart, timePart] = fundraisingData.lastUpdate.split(' ');
+    const [year, month, day] = datePart.split('-');
+    const monthIndex = parseInt(month) - 1;
+    const lang = document.documentElement.lang || "ru";
+
+    const months = {
+        ru: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
+        kz: ["қаңтар", "ақпан", "наурыз", "сәуір", "мамыр", "маусым", "шілде", "тамыз", "қыркүйек", "қазан", "қараша", "желтоқсан"],
+        tr: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+    };
+
+    const prefixes = {
+        ru: "Обновлено: ",
+        kz: "Жаңартылды: ",
+        tr: "Güncellendi: "
+    };
+
+    const mName = months[lang][monthIndex];
+    const pre = prefixes[lang];
+    let formatted = "";
+
+    if (lang === "ru") {
+        formatted = `${pre}${parseInt(day)} ${mName} ${year}, ${timePart}`;
+    } else if (lang === "kz") {
+        formatted = `${pre}${year} жылғы ${parseInt(day)} ${mName}, ${timePart}`;
+    } else { // tr
+        formatted = `${pre}${parseInt(day)} ${mName} ${year}, ${timePart}`;
+    }
+
+    const el = document.getElementById('updateTime');
+    if (el) el.textContent = formatted;
+}
+
 function updateProgress() {
     const percent = (fundraisingData.collected / fundraisingData.target) * 100;
     
-    // Сумма
     document.getElementById('collectedAmount').textContent =
         `$${fundraisingData.collected.toLocaleString()}`;
     
-    // Полоса
     document.getElementById('progressFill').style.width = percent + '%';
     
-    // Текст под полосой
-    const progressWord = {
-        ru: "Собрано",
-        kz: "Жиналды",
-        tr: "Toplandı"
-    };
-
+    const progressWord = { ru: "Собрано", kz: "Жиналды", tr: "Toplandı" };
     const lang = document.documentElement.lang || "ru";
     const word = progressWord[lang] || progressWord.ru;
 
-    // ИСПРАВЛЕНО: процент выводится корректно
-    document.getElementById('progressText').textContent =
-        `${word} ${percent.toFixed(2)}%`;
+    document.getElementById('progressText').textContent = `${word} ${percent.toFixed(2)}%`;
+    
+    updateTimeDisplay();
 }
 
 // Копирование реквизитов
@@ -330,8 +356,7 @@ ru: {
     motivation: "Один перевод — одна капля надежды.",
     documents: "Документы",
     donate: "ПОДДЕРЖАТЬ АЙЯНУ",
-    footer: "Сбор средств для Нуртаевой Айяны. Спасибо каждому, кто помогает спасти жизнь.",
-    updated_at: "Обновлено: 24 декабря 2025, 16:00"
+    footer: "Сбор средств для Нуртаевой Айяны. Спасибо каждому, кто помогает спасти жизнь."
 },
 kz: {
     title: "🔴 ТҮРКИЯДА ЕМДЕЛУ ҮШІН ЖЕДЕЛ ЖИНАУ",
@@ -354,12 +379,11 @@ kz: {
     cards_kz: "Банк карталары",
     contacts: "Байланыс",
     mother: "Анасы: Елена Джансагимова",
-    father: "Әкесі: Нұрлан Джансагимов",
+    father: "Әкеси: Нұрлан Джансагимов",
     motivation: "Әр аударым — үміт тамшысы.",
     documents: "Құжаттар",
     donate: "АЙЯНАҒА ҚОЛДАУ КӨРСЕТУ",
-    footer: "Нуртаева Айянаға арналған қайырымдылық жинағы.",
-    updated_at: "Жаңартылды: 24 желтоқсан 2025, 16:00"
+    footer: "Нуртаева Айянаға арналған қайырымдылық жинағы."
 },
 tr: {
     title: "🔴 TÜRKİYE’DE TEDAVİ İÇİN ACİL YARDIM",
@@ -369,7 +393,7 @@ tr: {
     need_sum: "Gerekli tutar: 243.000 USD",
     quote: "Her gün umut. Her bağış bir şanstır.",
     progress_title: "Bağış Durumu",
-    goal: "hedef: $243,000",
+    goal: "hedef: $243.000",
     diagnosis_title: "Teşhis ve Tedavi Planı",
     diagnosis_text_1: "Aiyana’ya akut lenfoblastik lösemi teşhisi konmuştur.",
     diagnosis_text_2: "Tedavi için immünoterapi, kemik iliği nakli ve CAR-T tedavisi gereklidir.",
@@ -386,8 +410,7 @@ tr: {
     motivation: "Her bağış bir umut damlasıdır.",
     documents: "Belgeler",
     donate: "AIYANA’YA DESTEK OL",
-    footer: "Nurtayeva Aiyana için yardım kampanyası.",
-    updated_at: "Güncellendi: 24 Aralık 2025, 16:00"
+    footer: "Nurtayeva Aiyana için yardım kampanyası."
 }
 };
 
@@ -398,12 +421,12 @@ function setLanguage(lang){
         const key = el.dataset.i18n;
         if(translations[lang][key]) el.textContent = translations[lang][key];
     });
-    updateProgress(); // Вызываем обновление прогресса для смены языка слова "Собрано"
+    updateProgress();
 }
 
 const urlLang = new URLSearchParams(location.search).get("lang");
 setLanguage(urlLang || localStorage.getItem("siteLang") || "ru");
-	loadFundraisingData(); // Это заставит сайт пойти и прочитать сумму из data.json
+loadFundraisingData(); 
 </script>
 
 </body>
