@@ -57,19 +57,43 @@ section {
     font-size: 1.6em;
     font-weight: bold;
 }
-.progress-bar {
-    height: 25px;
-    background: #e0e0e0;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-bottom: 10px;
+
+/* Стили для гистограммы */
+.chart-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 180px;
+    margin: 30px 0 40px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
 }
-.progress-fill {
-    height: 100%;
-    background: #28a745;
-    width: 0%;
-    transition: width 2s ease;
+.chart-bar {
+    width: 20%;
+    background: var(--secondary-color);
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    transition: height 1s ease-out;
+    min-height: 5px;
 }
+.chart-label {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85em;
+    font-weight: bold;
+}
+.chart-value {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
 .btn-donate {
     display: block;
     background: #ff4d4d;
@@ -134,6 +158,8 @@ section {
 }
 @media (max-width: 768px) {
     .requisites { grid-template-columns: 1fr; }
+    .chart-bar { width: 28%; }
+    .chart-value { font-size: 0.7em; }
 }
 </style>
 </head>
@@ -161,20 +187,20 @@ section {
     <img src="Aiyana.png" alt="Айяна">
     <h2 data-i18n="name">Нуртаева Айяна</h2>
     <p><strong data-i18n="age_city">13 лет, г. Астана</strong></p>
-    <p class="urgent-sum" data-i18n="need_sum">Необходимая сумма: 243 000 USD</p>
+    <p class="urgent-sum" data-i18n="need_sum">Необходимая сумма: 160 000 000 ₸</p>
     <p><em data-i18n="quote">Каждый день — это надежда. Каждый взнос — это шанс.</em></p>
 </section>
 
 <section>
     <h3 data-i18n="progress_title">Прогресс сбора</h3>
-    <div style="font-size:2.5em; color:red; font-weight:bold; text-align:left;" id="collectedAmount">$0</div>
-    <div data-i18n="goal" style="margin-bottom:10px;">цель: $243,000</div>
-    
-    <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+    <div style="font-size:2.5em; color:red; font-weight:bold; text-align:center;" id="collectedAmount">0 ₸</div>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <span data-i18n="goal">цель:</span> 160 000 000 ₸
     </div>
     
-    <div id="progressText" style="font-size: 1.1em; margin-top: 5px;">Загрузка...</div>
+    <div class="chart-container" id="chartContainer">
+        </div>
+    
     <div id="updateTime" style="text-align: center; color: #555; font-size: 0.85em; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
         Загрузка даты...
     </div>
@@ -243,14 +269,13 @@ section {
 </section>
 
 <footer style="text-align:center;padding:20px;">
-    <p data-i18n="footer">Сбор средств для Нуртаевой Айяна. Спасибо каждому, кто помогает спасти жизнь.</p>
+    <p data-i18n="footer">Сбор средств для Нуртаевой Айяны. Спасибо каждому, кто помогает спасти жизнь.</p>
 </footer>
 
 </div>
 
 <script>
-// Глобальный объект данных
-let fundraisingData = { collected: 0, target: 243000, lastUpdate: "" };
+let fundraisingData = { collected: 0, target: 160000000, history: [], lastUpdate: "" };
 
 async function loadFundraisingData() {
     try {
@@ -258,6 +283,7 @@ async function loadFundraisingData() {
         const data = await response.json();
         
         fundraisingData.collected = data.collected;
+        fundraisingData.history = data.history || [];
         fundraisingData.lastUpdate = data.updated_at || ""; 
         
         updateProgress();
@@ -269,7 +295,6 @@ async function loadFundraisingData() {
 function updateTimeDisplay() {
     if (!fundraisingData.lastUpdate) return;
 
-    // Парсим дату "ГГГГ-ММ-ДД ЧЧ:ММ"
     const [datePart, timePart] = fundraisingData.lastUpdate.split(' ');
     const [year, month, day] = datePart.split('-');
     const monthIndex = parseInt(month) - 1;
@@ -295,7 +320,7 @@ function updateTimeDisplay() {
         formatted = `${pre}${parseInt(day)} ${mName} ${year}, ${timePart}`;
     } else if (lang === "kz") {
         formatted = `${pre}${year} жылғы ${parseInt(day)} ${mName}, ${timePart}`;
-    } else { // tr
+    } else { 
         formatted = `${pre}${parseInt(day)} ${mName} ${year}, ${timePart}`;
     }
 
@@ -304,23 +329,36 @@ function updateTimeDisplay() {
 }
 
 function updateProgress() {
-    const percent = (fundraisingData.collected / fundraisingData.target) * 100;
-    
+    // 1. Обновление текущей суммы
     document.getElementById('collectedAmount').textContent =
-        `$${fundraisingData.collected.toLocaleString()}`;
+        `${fundraisingData.collected.toLocaleString()} ₸`;
     
-    document.getElementById('progressFill').style.width = percent + '%';
+    // 2. Построение гистограммы
+    const container = document.getElementById('chartContainer');
+    container.innerHTML = '';
     
-    const progressWord = { ru: "Собрано", kz: "Жиналды", tr: "Toplandı" };
-    const lang = document.documentElement.lang || "ru";
-    const word = progressWord[lang] || progressWord.ru;
+    const last3Days = fundraisingData.history.slice(-3);
+    const maxVal = Math.max(...last3Days.map(d => d.amount), 1);
 
-    document.getElementById('progressText').textContent = `${word} ${percent.toFixed(2)}%`;
+    last3Days.forEach(day => {
+        const heightPercent = (day.amount / maxVal) * 100;
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        bar.style.height = '0%'; 
+        
+        bar.innerHTML = `
+            <div class="chart-value">${day.amount.toLocaleString()} ₸</div>
+            <div class="chart-label">${day.date}</div>
+        `;
+        container.appendChild(bar);
+        
+        // Анимация роста
+        setTimeout(() => { bar.style.height = heightPercent + '%'; }, 100);
+    });
     
     updateTimeDisplay();
 }
 
-// Копирование реквизитов
 document.querySelectorAll('.bank-card').forEach(card => {
     card.onclick = () => {
         navigator.clipboard.writeText(card.dataset.card);
@@ -336,14 +374,14 @@ ru: {
     location: "г. Стамбул, госпиталь Acibadem",
     name: "Нуртаева Айяна",
     age_city: "13 лет, г. Астана",
-    need_sum: "Необходимая сумма: 243 000 USD",
+    need_sum: "Необходимая сумма: 160 000 000 ₸",
     quote: "Каждый день — это надежда. Каждый взнос — это шанс.",
     progress_title: "Прогресс сбора",
-    goal: "цель: $243,000",
+    goal: "цель:",
     diagnosis_title: "Диагноз и план лечения",
     diagnosis_text_1: "Айяне поставлен диагноз: острый лимфобластный лейкоз, осложнённый сахарным диабетом 1 типа.",
     diagnosis_text_2: "Необходимо проведение иммунотерапии, трансплантации костного мозга и CAR-T терапии.",
-    cost_title: "Стоимость лечения: $243 000",
+    cost_title: "Стоимость лечения",
     cost_text: "Общая стоимость лечения включает:",
     cost_li1: "Иммунотерапия — $33 000",
     cost_li2: "Трансплантация костного мозга — $100 000",
@@ -363,14 +401,14 @@ kz: {
     location: "Стамбул қ., Acibadem ауруханасы",
     name: "Нуртаева Айяна",
     age_city: "13 жаста, Астана",
-    need_sum: "Қажетті сома: 243 000 АҚШ доллары",
+    need_sum: "Қажетті сома: 160 000 000 ₸",
     quote: "Әр күн — үміт. Әр көмек — мүмкіндік.",
     progress_title: "Жиналым барысы",
-    goal: "мақсат: $243,000",
+    goal: "мақсат:",
     diagnosis_title: "Диагноз және емдеу жоспары",
     diagnosis_text_1: "Айянаға жедел лимфобластты лейкоз диагнозы қойылды.",
     diagnosis_text_2: "Емдеу үшін иммунотерапия, сүйек кемігін трансплантациялау және CAR-T терапиясы қажет.",
-    cost_title: "Емдеу құны: $243 000",
+    cost_title: "Емдеу құны",
     cost_text: "Жалпы емдеу құны:",
     cost_li1: "Иммунотерапия — $33 000",
     cost_li2: "Сүйек кемігін трансплантациялау — $100 000",
@@ -386,18 +424,18 @@ kz: {
     footer: "Нуртаева Айянаға арналған қайырымдылық жинағы."
 },
 tr: {
-    title: "🔴 TÜRKİYE’DE TEDAVİ İÇİN ACİL YARDIM",
+    title: "🔴 TÜRKİYE’DE TEDAVİ ИЧИН ACİL YARDIM",
     location: "İstanbul, Acibadem Hastanesi",
     name: "Nurtayeva Aiyana",
     age_city: "13 yaşında, Astana",
-    need_sum: "Gerekli tutar: 243.000 USD",
+    need_sum: "Gerekli tutar: 160.000.000 ₸",
     quote: "Her gün umut. Her bağış bir şanstır.",
     progress_title: "Bağış Durumu",
-    goal: "hedef: $243.000",
+    goal: "hedef:",
     diagnosis_title: "Teşhis ve Tedavi Planı",
     diagnosis_text_1: "Aiyana’ya akut lenfoblastik lösemi teşhisi konmuştur.",
     diagnosis_text_2: "Tedavi için immünoterapi, kemik iliği nakli ve CAR-T tedavisi gereklidir.",
-    cost_title: "Tedavi Maliyeti: 243.000 USD",
+    cost_title: "Tedavi Maliyeti",
     cost_text: "Toplam tedavi maliyeti:",
     cost_li1: "İmmünoterapi — $33.000",
     cost_li2: "Kemik iliği nakli — $100.000",
