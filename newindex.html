@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спасите Жизнь Айяны | Сбор Завершен</title>
+<link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+<style>
+:root {
+    --primary-color: #000000;
+    --secondary-color: #28a745;
+    --accent-color: #FFB74D;
+    --bg-blue: #7198d1;
+    --card-blue: #a0bbec;
+    --text-color: #000000;
+    --font-family: 'Arial', sans-serif;
+}
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    background-color: var(--bg-blue);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+h1, h2, h3 {
+    color: var(--primary-color) !important;
+    text-transform: uppercase;
+    text-align: center;
+}
+section {
+    background-color: var(--card-blue) !important;
+    margin: 25px 0;
+    padding: 35px;
+    border-radius: 40px;
+    animation: fadeInUp 0.8s ease-out;
+    position: relative; /* НОВОЕ: для позиционирования стикера */
+    overflow: hidden;   /* НОВОЕ: чтобы стикер не выходил за границы */
+}
+
+/* НОВОЕ: Стиль стикера завершения */
+.completed-badge {
+    position: absolute;
+    top: 25px;
+    right: -35px;
+    background: #28a745;
+    color: white;
+    padding: 10px 45px;
+    font-size: 1.2em;
+    font-weight: bold;
+    transform: rotate(20deg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+    border: 2px dashed rgba(255,255,255,0.5);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hero img {
+    width: 220px;
+    height: 220px;
+    border-radius: 30px;
+    object-fit: cover;
+    border: 5px solid #fff;
+}
+.urgent-sum {
+    color: #28a745; /* ИЗМЕНЕНО: зеленый вместо красного */
+    font-size: 1.6em;
+    font-weight: bold;
+    text-decoration: line-through; /* НОВОЕ: перечеркнуто */
+}
+
+/* Стили для гистограммы */
+.chart-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 180px;
+    margin: 30px 0 40px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+.chart-bar {
+    width: 20%;
+    background: var(--secondary-color);
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    transition: height 1s ease-out;
+    min-height: 5px;
+}
+.chart-label {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85em;
+    font-weight: bold;
+}
+.chart-value {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+.btn-donate {
+    display: block;
+    background: #6c757d; /* ИЗМЕНЕНО: серый цвет */
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 400px;
+    cursor: default; /* НОВОЕ: курсор не кликабелен */
+}
+.requisites {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.card {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 25px;
+    border-radius: 30px;
+}
+.bank-card {
+    display: inline-block;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-weight: bold;
+    cursor: pointer;
+}
+.instagram-link {
+    display: inline-block;
+    background: #e1306c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+.gallery img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 15px;
+}
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+}
+@media (max-width: 768px) {
+    .requisites { grid-template-columns: 1fr; }
+    .chart-bar { width: 28%; }
+    .chart-value { font-size: 0.7em; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="copy-notification" id="copyNotification">Скопировано!</div>
+
+<header>
+    <div class="container">
+        <h1 data-i18n="main_title">✅ СБОР УСПЕШНО ЗАВЕРШЕН</h1>
+        <p data-i18n="location" style="text-align: center;">г. Стамбул, госпиталь Acibadem</p>
+    </div>
+</header>
+
+<div style="text-align:center; margin-bottom:15px;">
+    <button onclick="setLanguage('ru')">🇷🇺 RU</button>
+    <button onclick="setLanguage('kz')">🇰🇿 KZ</button>
+    <button onclick="setLanguage('tr')">🇹🇷 TR</button>
+</div>
+
+<div class="container">
+
+<section class="hero" style="text-align:center;">
+    <div class="completed-badge" data-i18n="status_done">ЗАВЕРШЕН</div>
+    
+    <img src="Aiyana.png" alt="Айяна">
+    <h2 data-i18n="name">Нуртаева Айяна</h2>
+    <p><strong data-i18n="age_city">13 лет, г. Астана</strong></p>
+    <p class="urgent-sum" data-i18n="need_sum">Собрано: 160 000 000 ₸</p>
+    <p><em data-i18n="thx_quote">Спасибо каждому, кто подарил надежду!</em></p>
+</section>
+
+<section>
+    <h3 data-i18n="progress_title">Прогресс сбора</h3>
+    <div style="font-size:2.5em; color:#28a745; font-weight:bold; text-align:center;" id="collectedAmount">160 000 000 ₸</div>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <span data-i18n="goal_reached">цель достигнута:</span> 160 000 000 ₸
+    </div>
+    
+    <div class="chart-container" id="chartContainer">
+        </div>
+    
+    <div id="updateTime" style="text-align: center; color: #555; font-size: 0.85em; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+        Загрузка даты...
+    </div>
+</section>
+
+<section>
+    <h2 data-i18n="diagnosis_title">Диагноз и план лечения</h2>
+    <p data-i18n="diagnosis_text_1">Айяне поставлен диагноз: острый лимфобластный лейкоз, осложнённый сахарным диабетом 1 типа.</p>
+    <p data-i18n="diagnosis_text_2">Необходимо проведение иммунотерапии, трансплантации костного мозга и CAR-T терапии.</p>
+</section>
+
+<section>
+    <h2 data-i18n="cost_title">Стоимость лечения</h2>
+    <p data-i18n="cost_text">Общая стоимость лечения включает:</p>
+    <ul>
+        <li data-i18n="cost_li1">Иммунотерапия — $33 000</li>
+        <li data-i18n="cost_li2">Трансплантация костного мозга — $100 000</li>
+        <li data-i18n="cost_li3">CAR-T терапия — $110 000</li>
+    </ul>
+</section>
+
+<section id="requisites">
+    <h2 data-i18n="requisites">Реквизиты</h2>
+    <div class="requisites">
+        <div class="card">
+            <h3 data-i18n="cards_kz">Карты (РК)</h3>
+            <p>Forte: <span class="bank-card" data-card="4042438601636362">4042 4386 0163 6362</span></p>
+            <p>Kaspi: <span class="bank-card" data-card="4400430321887934">4400 4303 2188 7934</span></p>
+            <p>Halyk: <span class="bank-card" data-card="4146213057715241">4146 2130 5771 5241</span></p>
+			<p>Yelena Jansagimova</p>
+			<p>PayPal: <span class="bank-card" data-card="NurlanJansagimov">NurlanJansagimov</span></p>
+			<p>PayPal: <span class="bank-card" data-card="d.nurlan-86@mail.ru">d.nurlan-86@mail.ru</span></p>
+			<p>Nurlan Jansagimov</p>
+        </div>
+        <div class="card">
+            <h3 data-i18n="contacts">Контакты</h3>
+            <p data-i18n="mother">Мама: Елена Джансагимова</p>
+			<p><strong>WhatsApp:</strong><br>
+                <a href="https://wa.me/77026102222" target="_blank" class="whatsapp-link">
+                    📱 +7 702 610 22 22
+                </a>
+			</p>
+            <p data-i18n="father">Папа: Нурлан Джансагимов</p>
+			<p><strong>WhatsApp:</strong><br>
+                <a href="https://wa.me/77017950664" target="_blank" class="whatsapp-link">
+                    📱 +7 701 795 06 64
+                </a>
+            </p>
+			<p><strong>Instagram:</strong><br>
+                <a href="https://www.instagram.com/help_aiyana_nurtaeva?igsh=MWhic2EzdXBlMDNlbw==" target="_blank" class="instagram-link">
+                    📷 @help_aiyana_nurtaeva
+                </a>
+            </p>
+            <p><small data-i18n="motivation">Сбор закрыт благодаря вам.</small></p>
+        </div>
+    </div>
+    <a href="javascript:void(0)" class="btn-donate" data-i18n="donate">СБОР ЗАВЕРШЕН</a>
+</section>
+
+<section>
+    <h2 data-i18n="documents">Документы</h2>
+    <div class="gallery">
+        <img src="schet.jpg" alt="Счет на оплату">
+        <img src="otchet.jpg" alt="Отчет">
+    </div>
+</section>
+
+<footer style="text-align:center;padding:20px;">
+    <p data-i18n="footer">Сбор средств завершен. Спасибо за вашу доброту!</p>
+</footer>
+
+</div>
+
+<script>
+let fundraisingData = { collected: 160000000, target: 160000000, history: [], lastUpdate: "" };
+
+async function loadFundraisingData() {
+    try {
+        const response = await fetch('data.json?t=' + Date.now());
+        const data = await response.json();
+        
+        fundraisingData.collected = data.collected;
+        fundraisingData.history = data.history || [];
+        fundraisingData.lastUpdate = data.updated_at || ""; 
+        
+        updateProgress();
+    } catch (error) {
+        console.error("Не удалось загрузить данные из data.json:", error);
+    }
+}
+
+function updateTimeDisplay() {
+    if (!fundraisingData.lastUpdate) return;
+
+    const [datePart, timePart] = fundraisingData.lastUpdate.split(' ');
+    const [year, month, day] = datePart.split('-');
+    const monthIndex = parseInt(month) - 1;
+    const lang = document.documentElement.lang || "ru";
+
+    const months = {
+        ru: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
+        kz: ["қаңтар", "ақпан", "наурыз", "сәуір", "мамыр", "маусым", "шілде", "тамыз", "қыркүйек", "қазан", "қараша", "желтоқсан"],
+        tr: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+    };
+
+    const prefixes = {
+        ru: "Обновлено: ",
+        kz: "Жаңартылды: ",
+        tr: "Güncellendi: "
+    };
+
+    const mName = months[lang][monthIndex];
+    const pre = prefixes[lang];
+    let formatted = "";
+
+    if (lang === "ru") {
+        formatted = `${pre}${parseInt(day)} ${mName} ${year}, ${timePart}`;
+    } else if (lang === "kz") {
+        formatted = `${pre}${year} жылғы ${parseInt(day)} ${mName}, ${timePart}`;
+    } else { 
+        formatted = `${pre}${parseInt(day)} ${mName} ${year}, ${timePart}`;
+    }
+
+    const el = document.getElementById('updateTime');
+    if (el) el.textContent = formatted;
+}
+
+function updateProgress() {
+    // 1. Обновление текущей суммы
+    document.getElementById('collectedAmount').textContent =
+        `${fundraisingData.collected.toLocaleString()} ₸`;
+    
+    // 2. Построение гистограммы
+    const container = document.getElementById('chartContainer');
+    container.innerHTML = '';
+    
+    const last3Days = fundraisingData.history.slice(-3);
+    const maxVal = Math.max(...last3Days.map(d => d.amount), 1);
+
+    last3Days.forEach(day => {
+        const heightPercent = (day.amount / maxVal) * 100;
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        bar.style.height = '0%'; 
+        
+        bar.innerHTML = `
+            <div class="chart-value">${day.amount.toLocaleString()} ₸</div>
+            <div class="chart-label">${day.date}</div>
+        `;
+        container.appendChild(bar);
+        
+        // Анимация роста
+        setTimeout(() => { bar.style.height = heightPercent + '%'; }, 100);
+    });
+    
+    updateTimeDisplay();
+}
+
+document.querySelectorAll('.bank-card').forEach(card => {
+    card.onclick = () => {
+        navigator.clipboard.writeText(card.dataset.card);
+        const notification = document.getElementById('copyNotification');
+        notification.style.display = 'block';
+        setTimeout(() => notification.style.display = 'none', 2000);
+    };
+});
+
+const translations = {
+ru: {
+    main_title: "✅ СБОР УСПЕШНО ЗАВЕРШЕН",
+    location: "г. Стамбул, госпиталь Acibadem",
+    status_done: "ЗАВЕРШЕН",
+    name: "Нуртаева Айяна",
+    age_city: "13 лет, г. Астана",
+    need_sum: "Собрано: 160 000 000 ₸",
+    thx_quote: "Спасибо каждому, кто подарил надежду!",
+    progress_title: "Итог сбора",
+    goal_reached: "цель достигнута:",
+    diagnosis_title: "Диагноз и план лечения",
+    diagnosis_text_1: "Айяне поставлен диагноз: острый лимфобластный лейкоз, осложнённый сахарным диабетом 1 типа.",
+    diagnosis_text_2: "Необходимо проведение иммунотерапии, трансплантации костного мозга и CAR-T терапии.",
+    cost_title: "Стоимость лечения",
+    cost_text: "Общая стоимость лечения включает:",
+    cost_li1: "Иммунотерапия — $33 000",
+    cost_li2: "Трансплантация костного мозга — $100 000",
+    cost_li3: "CAR-T терапия — $110 000",
+    requisites: "Реквизиты",
+    cards_kz: "Карты (Казахстан)",
+    contacts: "Контакты",
+    mother: "Мама: Елена Джансагимова",
+    father: "Папа: Нурлан Джансагимов",
+    motivation: "Сбор закрыт благодаря вам.",
+    documents: "Документы",
+    donate: "СБОР ЗАВЕРШЕН",
+    footer: "Сбор средств завершен. Спасибо за вашу доброту!"
+},
+kz: {
+    main_title: "✅ ЖИНАУ СӘТТІ АЯҚТАЛДЫ",
+    location: "Стамбул қ., Acibadem ауруханасы",
+    status_done: "АЯҚТАЛДЫ",
+    name: "Нуртаева Айяна",
+    age_city: "13 жаста, Астана",
+    need_sum: "Жиналды: 160 000 000 ₸",
+    thx_quote: "Үміт сыйлаған әр жанға мың алғыс!",
+    progress_title: "Жиналым қорытындысы",
+    goal_reached: "мақсат орындалды:",
+    diagnosis_title: "Диагноз және емдеу жоспары",
+    diagnosis_text_1: "Айянаға жедел лимфобластты лейкоз диагнозы қойылды.",
+    diagnosis_text_2: "Емдеу үшін иммунотерапия, сүйек кемігін трансплантациялау және CAR-T терапиясы қажет.",
+    cost_title: "Емдеу құны",
+    cost_text: "Жалпы емдеу құны:",
+    cost_li1: "Иммунотерапия — $33 000",
+    cost_li2: "Сүйек кемігін трансплантациялау — $100 000",
+    cost_li3: "CAR-T терапиясы — $110 000",
+    requisites: "Көмек көрсету деректемелері",
+    cards_kz: "Банк карталары",
+    contacts: "Байланыс",
+    mother: "Анасы: Елена Джансагимова",
+    father: "Әкеси: Нұрлан Джансагимов",
+    motivation: "Сіздердің арқаларыңызда жинау жабылды.",
+    documents: "Құжаттар",
+    donate: "ЖИНАУ АЯҚТАЛДЫ",
+    footer: "Қайырымдылық жинағы аяқталды. Мейірімділіктеріңізге рахмет!"
+},
+tr: {
+    main_title: "✅ YARDIM TAMAMLANDI",
+    location: "İstanbul, Acibadem Hastanesi",
+    status_done: "BİTTİ",
+    name: "Nurtayeva Aiyana",
+    age_city: "13 yaşında, Astana",
+    need_sum: "Toplanan: 160.000.000 ₸",
+    thx_quote: "Umut veren herkese teşekkürler!",
+    progress_title: "Bağış Sonucu",
+    goal_reached: "hedefe ulaşıldı:",
+    diagnosis_title: "Teşhis ve Tedavi Planı",
+    diagnosis_text_1: "Aiyana’ya akut lenfoblastik lösemi teşhisi konmuştur.",
+    diagnosis_text_2: "Tedavi için immünoterapi, kemik iliği nakli и CAR-T tedavisi gereklidir.",
+    cost_title: "Tedavi Maliyeti",
+    cost_text: "Toplam tedavi maliyeti:",
+    cost_li1: "İmmünoterapi — $33.000",
+    cost_li2: "Kemik iliği nakli — $100.000",
+    cost_li3: "CAR-T tedavisi — $110.000",
+    requisites: "Bağış Bilgileri",
+    cards_kz: "Banka Kartları",
+    contacts: "İletişim",
+    mother: "Anne: Yelena Jansagimova",
+    father: "Baba: Nurlan Jansagimov",
+    motivation: "Bağışlarınız için teşekkürler.",
+    documents: "Belgeler",
+    donate: "TAMAMLANDI",
+    footer: "Yardım kampanyası tamamlandı. İyiliğiniz için teşekkürler!"
+}
+};
+
+function setLanguage(lang){
+    localStorage.setItem("siteLang", lang);
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.dataset.i18n;
+        if(translations[lang][key]) el.textContent = translations[lang][key];
+    });
+    updateProgress();
+}
+
+const urlLang = new URLSearchParams(location.search).get("lang");
+setLanguage(urlLang || localStorage.getItem("siteLang") || "ru");
+loadFundraisingData(); 
+</script>
+
+</body>
+</html>
